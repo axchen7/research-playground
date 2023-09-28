@@ -84,7 +84,7 @@ def genotype_posterior(actual: Genotype, observed: Genotype) -> float:
 
 
 # %%
-Q = np.zeros((num_states, num_states))
+Q = np.eye(num_states) / 16
 
 
 class Node(ABC):
