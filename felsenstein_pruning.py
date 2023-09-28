@@ -28,8 +28,8 @@ class Genotype:
 
 num_states = len(Genotype.enumerate())
 
-epsilon = 0.05
-delta = 0.1
+delta = 0.1  # ADO rate
+epsilon = 0.05  # ERR rate
 
 
 def genotype_likelihood(observed: Genotype, actual: Genotype) -> float:
