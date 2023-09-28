@@ -71,9 +71,8 @@ def genotype_posterior(actual: Genotype, observed: Genotype) -> float:
 
     evidence = 0
 
-    for a1 in Allele:
-        for a2 in Allele:
-            evidence += genotype_likelihood(observed, Genotype(a1, a2)) * prior
+    for g in Genotype.enumerate():
+        evidence += genotype_likelihood(observed, g) * prior
 
     return likelihood * prior / evidence
 
