@@ -1,7 +1,7 @@
 # %%
 from abc import ABC, abstractmethod
 import numpy as np
-from scipy.linalg import expm
+from scipy.linalg import expm  # type: ignore
 from enum import Enum
 
 # %%
