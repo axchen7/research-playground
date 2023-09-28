@@ -82,13 +82,6 @@ def genotype_posterior(actual: Genotype, observed: Genotype) -> float:
 Q = np.eye(num_states)
 
 
-def pr(cur_state: Genotype, t: float):
-    cur_state_one_hot = np.zeros(num_states)
-    cur_state_one_hot[cur_state.flatten()] = 1
-
-    return expm(Q * t) @ cur_state_one_hot
-
-
 class Node(ABC):
     @abstractmethod
     def likelihood(self, state: Genotype) -> float:
@@ -110,6 +103,13 @@ class Parent(Node):
         self.tR = tR
         self.nodeR = nodeR
 
+    @staticmethod
+    def __pr(cur_state: Genotype, t: float):
+        cur_state_one_hot = np.zeros(num_states)
+        cur_state_one_hot[cur_state.flatten()] = 1
+
+        return expm(Q * t) @ cur_state_one_hot
+
     def likelihood(self, state: Genotype) -> float:
         likelihood_arr_L = np.array(
             [self.nodeL.likelihood(g) for g in Genotype.enumerate()]
@@ -118,8 +118,8 @@ class Parent(Node):
             [self.nodeR.likelihood(g) for g in Genotype.enumerate()]
         )
 
-        totalL = np.dot(pr(state, self.tL), likelihood_arr_L)
-        totalR = np.dot(pr(state, self.tR), likelihood_arr_R)
+        totalL = np.dot(Parent.__pr(state, self.tL), likelihood_arr_L)
+        totalR = np.dot(Parent.__pr(state, self.tR), likelihood_arr_R)
 
         return totalL * totalR
 
