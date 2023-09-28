@@ -94,11 +94,13 @@ class Node(ABC):
 
 
 class Leaf(Node):
-    def __init__(self, state: Genotype):
-        self.state = state
+    def __init__(self, observed: Genotype):
+        self.states = [
+            genotype_posterior(actual, observed) for actual in Genotype.enumerate()
+        ]
 
     def likelihood(self, state: Genotype) -> float:
-        return 1 if state == self.state else 0
+        return self.states[state.flatten()]
 
 
 class Parent(Node):
