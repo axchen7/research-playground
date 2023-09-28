@@ -4,11 +4,8 @@ import numpy as np
 from scipy.linalg import expm  # type: ignore
 from enum import Enum
 
+
 # %%
-epsilon = 0.05
-delta = 0.1
-
-
 class Allele(Enum):
     A = 0
     C = 1
@@ -17,6 +14,9 @@ class Allele(Enum):
 
 
 Genotype = tuple[Allele, Allele]
+
+epsilon = 0.05
+delta = 0.1
 
 
 def genotype_likelihood(observed: Genotype, actual: Genotype) -> float:
