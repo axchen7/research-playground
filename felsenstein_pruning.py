@@ -19,7 +19,7 @@ class Allele(Enum):
 Genotype = tuple[Allele, Allele]
 
 
-def genotype_likelihood(observed: Genotype, actual: Genotype):
+def genotype_likelihood(observed: Genotype, actual: Genotype) -> float:
     """P(observed | actual)"""
 
     observed_is_homo = observed[0] == observed[1]
@@ -48,6 +48,21 @@ def genotype_likelihood(observed: Genotype, actual: Genotype):
             return (1 - delta) * (1 / 6) * epsilon
         else:
             return 0
+
+
+def genotype_posterior(actual: Genotype, observed: Genotype) -> float:
+    """P(actual | observed)"""
+
+    prior = 1 / 16  # P(actual); assume same for all genotypes
+    likelihood = genotype_likelihood(observed, actual)
+
+    evidence = 0
+
+    for a1 in Allele:
+        for a2 in Allele:
+            evidence += genotype_likelihood(observed, (a1, a2)) * prior
+
+    return likelihood * prior / evidence
 
 
 # %%
