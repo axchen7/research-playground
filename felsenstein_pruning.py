@@ -25,11 +25,6 @@ class Genotype:
     def enumerate():
         return [Genotype(first, second) for first in Allele for second in Allele]
 
-    def __eq__(self, other: object):
-        if isinstance(other, Genotype):
-            return self.first == other.first and self.second == other.second
-        return False
-
 
 num_states = len(Genotype.enumerate())
 
