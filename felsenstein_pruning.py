@@ -84,7 +84,7 @@ def genotype_posterior(actual: Genotype, observed: Genotype) -> float:
 
 
 # %%
-Q = np.eye(num_states)
+Q = np.zeros((num_states, num_states))
 
 
 class Node(ABC):
@@ -139,13 +139,10 @@ class Parent(Node):
 A = Allele
 G = Genotype
 
-# parent1 = Parent(1, Leaf(G(A.A, A.A)), 1, Leaf(G(A.A, A.A)))
-# parent2 = Parent(0.5, Leaf(G(A.A, A.A)), 0.5, Leaf(G(A.A, A.A)))
-# parent3 = Parent(0.5, parent1, 1.5, Leaf(G(A.A, A.A)))
-# parent4 = Parent(1, parent3, 2, parent2)
-# parent5 = Parent(0.5, parent4, 2.5, Leaf(G(A.A, A.A)))
-
-# print(parent5.treeLikelihood())
-
 parent1 = Parent(1, Leaf(G(A.A, A.A)), 1, Leaf(G(A.A, A.A)))
-print(parent1.treeLikelihood())
+parent2 = Parent(0.5, Leaf(G(A.A, A.A)), 0.5, Leaf(G(A.A, A.A)))
+parent3 = Parent(0.5, parent1, 1.5, Leaf(G(A.A, A.A)))
+parent4 = Parent(1, parent3, 2, parent2)
+parent5 = Parent(0.5, parent4, 2.5, Leaf(G(A.A, A.A)))
+
+print(parent5.treeLikelihood())
