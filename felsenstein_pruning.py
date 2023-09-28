@@ -26,7 +26,7 @@ class Genotype:
         return [Genotype(first, second) for first in Allele for second in Allele]
 
 
-num_states = len(Allele) ** 2
+num_states = len(Genotype.enumerate())
 
 epsilon = 0
 delta = 0
@@ -134,10 +134,13 @@ class Parent(Node):
 A = Allele
 G = Genotype
 
-parent1 = Parent(1, Leaf(G(A.A, A.A)), 1, Leaf(G(A.A, A.A)))
-parent2 = Parent(0.5, Leaf(G(A.A, A.A)), 0.5, Leaf(G(A.A, A.A)))
-parent3 = Parent(0.5, parent1, 1.5, Leaf(G(A.A, A.A)))
-parent4 = Parent(1, parent3, 2, parent2)
-parent5 = Parent(0.5, parent4, 2.5, Leaf(G(A.A, A.A)))
+# parent1 = Parent(1, Leaf(G(A.A, A.A)), 1, Leaf(G(A.A, A.A)))
+# parent2 = Parent(0.5, Leaf(G(A.A, A.A)), 0.5, Leaf(G(A.A, A.A)))
+# parent3 = Parent(0.5, parent1, 1.5, Leaf(G(A.A, A.A)))
+# parent4 = Parent(1, parent3, 2, parent2)
+# parent5 = Parent(0.5, parent4, 2.5, Leaf(G(A.A, A.A)))
 
-print(parent5.treeLikelihood())
+# print(parent5.treeLikelihood())
+
+parent1 = Parent(1, Leaf(G(A.A, A.A)), 1, Leaf(G(A.A, A.A)))
+print(parent1.treeLikelihood())
